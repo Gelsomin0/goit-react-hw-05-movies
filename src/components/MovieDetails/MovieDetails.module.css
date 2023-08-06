@@ -1,0 +1,8 @@
+.movie_container {
+    display: flex;
+    gap: 20px;
+}
+
+.poster {
+    width: 280px;
+}
