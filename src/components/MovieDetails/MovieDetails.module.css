@@ -1,6 +1,10 @@
 .movie_container {
     display: flex;
     gap: 20px;
+    padding: 20px 10px;
+    margin: 20px 0;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .poster_section {
@@ -9,7 +13,7 @@
 }
 
 .poster {
-    width: 280px;
+    width: 200px;
 }
 
 .film_title {

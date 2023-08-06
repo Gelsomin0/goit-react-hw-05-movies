@@ -1,7 +1,10 @@
 export default function getFetchData(status, movieId) {
     const API_KEY = 'dae942d7f917cb306657f0b21582727c';
-    const trendURL = `https://api.themoviedb.org/3/trending/all/day?${API_KEY}?language=en-US`;
+    const trendURL = `https://api.themoviedb.org/3/trending/all/day?${API_KEY}&language=en-US`;
     const movieByIdURL = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
+    const actorsURL = `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`;
+    const reviewURL = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`;
+
     const options = {
         headers: {
             accept: 'application/json',
@@ -16,6 +19,16 @@ export default function getFetchData(status, movieId) {
 
     if (status === 'movieID') {
         return fetch(movieByIdURL, options)
+            .then(res => res.json())
+    }
+
+    if (status === 'actor') {
+        return fetch(actorsURL, options)
+            .then(res => res.json())
+    }
+
+    if (status === 'review') {
+        return fetch(reviewURL, options)
             .then(res => res.json())
     }
 }
