@@ -1,6 +1,7 @@
 .cast_list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
     gap: 30px;
 }
 .cast_list_item {

@@ -2,3 +2,20 @@
     display: block;
     padding: 10px 50px;
 }
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav_bar {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
