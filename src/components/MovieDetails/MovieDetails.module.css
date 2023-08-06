@@ -3,6 +3,31 @@
     gap: 20px;
 }
 
+.poster_section {
+    display: block;
+    width: 300px;
+}
+
 .poster {
     width: 280px;
+}
+
+.film_title {
+    margin-bottom: 10px;
+}
+
+.info_title {
+    margin-left: 10px;
+    margin-bottom: 3px;
+    margin-top: 20px;
+}
+
+.movie_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.genres_list {
+    display: flex;
+    gap: 10px;
 }

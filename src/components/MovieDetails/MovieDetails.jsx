@@ -24,10 +24,9 @@ export default function MovieDetails() {
         handleFetchData();
     }, []);
 
-
     return (
         <div className={css.movie_container}>
-            <div>
+            <div className={css.poster_section}>
                 {
                     fetchData.poster_path &&
                     <img
@@ -36,13 +35,33 @@ export default function MovieDetails() {
                     />
                 }    
             </div>
+
+            <div className={css.movie_info}>
+                <h2 className={css.film_title}>{fetchData?.title || fetchData?.name} 
+                    {
+                        fetchData.release_date &&
+                        <span>{` (${fetchData.release_date.slice(0, 4)})`}</span>
+                    }
+                </h2>
+                <p>Average vote: {fetchData?.vote_average}</p>
+                <p>Original language: {fetchData?.original_language}</p>
+
+                <h3 className={css.info_title}>Overview</h3>
+                <p>
+                    {fetchData.overview && fetchData.overview}
+                </p> 
+                
+                <h3 className={css.info_title}>Genres</h3>
+                <ul className={css.genres_list}>{
+                    fetchData.genres && 
+                    fetchData.genres.map(({id, name}) => {
+                        return <li key={id}>{name}</li>
+                    })
+                    }
+                </ul>
+            </div>
             
-            <h2>{fetchData?.title || fetchData?.name} 
-                {
-                    fetchData.release_date &&
-                    <span>{` (${fetchData.release_date.slice(0, 4)})`}</span>
-                }
-            </h2>
+            
         </div>
     ); 
 }
