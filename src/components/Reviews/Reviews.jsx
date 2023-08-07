@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getFetchData from "tools/fetchData";
 import css from './Reviews.module.css';
@@ -11,7 +11,7 @@ export default function Reviews() {
             .then((res) => {
                 setReviews([...res.results]);
             })
-    }, [])
+    }, [movieId]);
 
     return (
         <ul className={css.reviews_list}>
