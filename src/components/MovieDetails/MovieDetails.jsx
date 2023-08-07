@@ -101,7 +101,7 @@ export default function MovieDetails() {
                 <InfoLink to='credits'>Actors</InfoLink>
                 <InfoLink to='reviews'>Reviews</InfoLink>
             </ul>
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Outlet />
             </Suspense>             
         </>

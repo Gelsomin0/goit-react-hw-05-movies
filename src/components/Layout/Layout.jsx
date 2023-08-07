@@ -31,7 +31,7 @@ export default function Layout() {
                     <StyledNavLink to='/movies'>Movies</StyledNavLink>
                 </nav>
             </Header>
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Outlet/>
             </Suspense>
         </div>
