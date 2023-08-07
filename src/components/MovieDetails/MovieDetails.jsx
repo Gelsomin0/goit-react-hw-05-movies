@@ -46,12 +46,11 @@ export default function MovieDetails() {
                     })
             } catch (err) {
                 return;
-                console.log(err);
             }
         }
 
         handleFetchData();
-    }, []);
+    }, [movieId]);
 
     return (
         <>
@@ -64,7 +63,8 @@ export default function MovieDetails() {
                         fetchData.poster_path ?
                         <img
                             className={css.poster}
-                            src={`${imageBaseURL()}${fetchData.poster_path}`}
+                                src={`${imageBaseURL()}${fetchData.poster_path}`}
+                                alt='Poster'
                         />
                         : <p className={css.no_poster}>Poster for this film does not exist!</p>
                     }    

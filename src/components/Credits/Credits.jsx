@@ -11,12 +11,13 @@ export default function Credits() {
         getFetchData('actor', movieId)
             .then((res) => {
                 setActors([...res.cast]);
+                console.log(res);
             })
-    }, []);
+    }, [movieId]);
 
     return (
         <ul className={css.cast_list}>
-            {actors && actors.map(({id, name, profile_path}) => {
+            {actors && actors.map(({id, name, profile_path, character}) => {
                 return (
                     <li
                         className={css.cast_list_item}
@@ -34,6 +35,7 @@ export default function Credits() {
                         }
                         
                         <h4>{name}</h4>
+                        <p><i>Character:</i> {character}</p>
                     </li>
                 );
             })}

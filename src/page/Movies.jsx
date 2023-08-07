@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import searchMovieByKeyWord from "tools/searchMovieByKeyWord";
 
 export default function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [moviesList, setMoviesList] = useState([]);
+    const canFetch = useRef(false);
     const keyWord = searchParams.get('key_word') ?? '';
     const location = useLocation();
 
-    const getSeatchList = (e) => {
-        e.preventDefault();
+    const getSeatchList = () => {
+        // setSearchParams('');
 
         try {
             searchMovieByKeyWord(keyWord).then((res) => {
@@ -28,9 +29,26 @@ export default function Movies() {
         setSearchParams({ key_word: value });
     }
 
+    useState(() => {
+        if (!searchParams.get('key_word')) {
+            return;
+        }
+
+        if (canFetch) {
+            getSeatchList();
+            canFetch.current = false;
+        }
+
+        console.log(searchParams.get('key_word'));
+    }, []);
+
     return (
         <main>
-            <form onSubmit={getSeatchList}>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                getSeatchList();
+                canFetch.current = true;
+            }}>
                 <input
                     type="text"
                     onChange={updateQueryString}
