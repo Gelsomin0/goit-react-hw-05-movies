@@ -1,21 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import searchMovieByKeyWord from "tools/searchMovieByKeyWord";
 
 export default function Movies() {
-    const [searchQuery, setsearchQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
     const [moviesList, setMoviesList] = useState([]);
-
-    const handleSearchQuery = ({ target: { value } }) => {
-        setsearchQuery(value);
-    }
+    const keyWord = searchParams.get('key_word') ?? '';
+    const location = useLocation();
 
     const getSeatchList = (e) => {
         e.preventDefault();
-        setsearchQuery('');
 
         try {
-            searchMovieByKeyWord(searchQuery).then((res) => {
+            searchMovieByKeyWord(keyWord).then((res) => {
                 setMoviesList([...res.results])
             })
         } catch (error) {
@@ -23,13 +20,21 @@ export default function Movies() {
         }
     }
 
+    const updateQueryString = ({target: {value}}) => {
+        if (value === '') {
+            return setSearchParams({});
+        }
+
+        setSearchParams({ key_word: value });
+    }
+
     return (
         <main>
             <form onSubmit={getSeatchList}>
                 <input
                     type="text"
-                    onChange={handleSearchQuery}
-                    value={searchQuery}
+                    onChange={updateQueryString}
+                    value={keyWord ?? ''}
                 />
                 <button>Search</button>
             </form>
@@ -37,7 +42,10 @@ export default function Movies() {
                 {moviesList && moviesList.map((movie) => {
                     return (
                         <li key={movie.id}>
-                            <Link to={`${movie.id}`}>{movie.title}</Link>
+                            <Link
+                                to={`${movie.id}`}
+                                state={{ from: location }}
+                            >{movie.title}</Link>
                         </li>
                     );
                 })}

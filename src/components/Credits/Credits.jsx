@@ -11,7 +11,6 @@ export default function Credits() {
         getFetchData('actor', movieId)
             .then((res) => {
                 setActors([...res.cast]);
-                console.log(res);
             })
     }, []);
 
@@ -23,11 +22,17 @@ export default function Credits() {
                         className={css.cast_list_item}
                         key={id}
                     >
-                        <img
-                            className={css.cast_image}
-                            src={`${imageBaseURL()}${profile_path}`}
-                            alt=""
-                        />
+                        {profile_path ?
+                            <img
+                                className={css.cast_image}
+                                src={`${imageBaseURL()}${profile_path}`}
+                                alt=""
+                            />
+                            : <p className={css.is_no_photo}>
+                                We have no photo of this actor. Sorry!
+                            </p>
+                        }
+                        
                         <h4>{name}</h4>
                     </li>
                 );

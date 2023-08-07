@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import getFetchData from "tools/fetchData";
 import styled from 'styled-components';
 
@@ -30,6 +30,7 @@ const StyledLink = styled(Link)`
 
 export default function Home() {
     const [trandMovies, setTrandMovies] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         const handleFetchData = async () => {
@@ -50,7 +51,10 @@ export default function Home() {
             {trandMovies.map((movie) => {
                 return (
                     <Li key={movie.id}>
-                        <StyledLink to={`movies/${movie.id}`}>
+                        <StyledLink
+                            to={`movies/${movie.id}`}
+                            state={{from: location}}
+                        >
                             {movie?.title || movie?.name}
                         </StyledLink>
                         <p>{movie.overview}</p>

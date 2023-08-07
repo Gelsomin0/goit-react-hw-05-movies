@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import css from './Layout.module.css';
 import styled from 'styled-components';
+import { Suspense } from 'react';
 
 const StyledNavLink = styled(NavLink)`
     font-size: 20px;
@@ -17,6 +18,7 @@ const StyledNavLink = styled(NavLink)`
 const Header = styled.header`
     padding: 10px 30px;
     border-bottom: 2px solid #000;
+    margin-bottom: 20px;
 `
 
 export default function Layout() {
@@ -29,7 +31,9 @@ export default function Layout() {
                     <StyledNavLink to='/movies'>Movies</StyledNavLink>
                 </nav>
             </Header>
-            <Outlet/>
+            <Suspense>
+                <Outlet/>
+            </Suspense>
         </div>
     );
 }

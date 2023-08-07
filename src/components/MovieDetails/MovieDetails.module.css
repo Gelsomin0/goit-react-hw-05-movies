@@ -35,3 +35,24 @@
     display: flex;
     gap: 10px;
 }
+
+.info_title {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.info_links_list {
+    display: flex;
+    gap: 40px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+.no_poster {
+    text-align: center;
+    font-weight: 500;
+    color: rgb(110, 0, 0);
+}

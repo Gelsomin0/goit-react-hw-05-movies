@@ -3,3 +3,23 @@
     flex-direction: column;
     gap: 20px;
 }
+
+.review_list_item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: aliceblue;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.review_content {
+    font-size: 14px;
+    margin-left: 30px;
+}
+
+.no_review {
+    font-size: 18px;
+    font-weight: 500;
+    color: #010194;
+}

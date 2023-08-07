@@ -20,3 +20,10 @@
 .cast_image {
     width: 100px;
 }
+
+.is_no_photo {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(91, 0, 0);
+    text-align: center;
+}

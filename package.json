@@ -38,6 +38,8 @@
     ]
   },
   "devDependencies": {
+    "notiflix": "^3.2.6",
+    "prop-types": "^15.8.1",
     "react-router-dom": "^6.14.2",
     "styled-components": "^6.0.7"
   }

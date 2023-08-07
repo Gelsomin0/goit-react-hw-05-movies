@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import getFetchData from "tools/fetchData";
 import css from './Reviews.module.css';
@@ -10,7 +10,6 @@ export default function Reviews() {
         getFetchData('review', movieId)
             .then((res) => {
                 setReviews([...res.results]);
-                console.log(res.results);
             })
     }, [])
 
@@ -18,14 +17,19 @@ export default function Reviews() {
         <ul className={css.reviews_list}>
             {reviews && reviews.map(({id, author, content}) => {
                 return (
-                    <li key={id}>
-                        <div><u>The review of <b>{author}: </b></u></div>
-                        <div>{content}</div>
+                    <li
+                        key={id}
+                        className={css.review_list_item}
+                    >
+                        <div><b>{author}</b></div>
+                        <div className={css.review_content}>{content}</div>
                     </li>
                 );
             })}
 
-            {!reviews && <p>Is no reviews for this film!</p>}
+            {reviews.length === 0
+                && <p className={css.no_review}>This is no review for this movie</p>
+            }
         </ul>
     );
 }

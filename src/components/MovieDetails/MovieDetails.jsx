@@ -1,22 +1,51 @@
-import { useState, useEffect } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import getFetchData from "tools/fetchData";
 import imageBaseURL from "tools/imageBaswURL";
 import css from './MovieDetails.module.css';
+import styled from 'styled-components';
+
+const BackLocationButton = styled(Link)`
+    padding: 7px 25px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #810000;
+    border-radius: 4px;
+    opacity: 1;
+
+    &:hover {
+        opacity: 0.85;
+    }
+`
+
+const InfoLink = styled(Link)`
+    font-size: 16px;
+    font-weight: 600;
+    color: #680000;
+
+    &:hover {
+        text-decoration: underline;
+        color: #165301;
+    }
+`
 
 export default function MovieDetails() {
     const [fetchData, setFetchData] = useState({})
     const { movieId } = useParams();
+    const location = useLocation();
+    const backLinkLocationRef = useRef(location.state?.from ?? '/');
+
     useEffect(() => {
-        setFetchData([]);
+        setFetchData({});
         const handleFetchData = async () => {
             try {
                 await getFetchData('movieID', movieId)
                     .then((res) => {
-                        console.log(res);
                         setFetchData({ ...res });
                     })
             } catch (err) {
+                return;
                 console.log(err);
             }
         }
@@ -26,14 +55,18 @@ export default function MovieDetails() {
 
     return (
         <>
+            <BackLocationButton
+                to={backLinkLocationRef.current}
+            >Previous page</BackLocationButton>
             <div className={css.movie_container}>
                 <div className={css.poster_section}>
                     {
-                        fetchData.poster_path &&
+                        fetchData.poster_path ?
                         <img
                             className={css.poster}
                             src={`${imageBaseURL()}${fetchData.poster_path}`}
                         />
+                        : <p className={css.no_poster}>Poster for this film does not exist!</p>
                     }    
                 </div>
 
@@ -63,12 +96,14 @@ export default function MovieDetails() {
                 </div>                
             </div>
 
-            <p>Additional information</p>
-            <ul>
-                <Link to='credits'>Actors</Link>
-                <Link to='reviews'>Reviews</Link>
+            <p className={css.info_title}>Additional information:</p>
+            <ul className={css.info_links_list}>
+                <InfoLink to='credits'>Actors</InfoLink>
+                <InfoLink to='reviews'>Reviews</InfoLink>
             </ul>
-            <Outlet /> 
+            <Suspense>
+                <Outlet />
+            </Suspense>             
         </>
     ); 
 }
